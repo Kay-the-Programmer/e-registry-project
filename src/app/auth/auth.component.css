@@ -1,0 +1,28 @@
+mat-card {
+  border-radius: 25px;
+  width: 800px;
+  /*height: 350px;*/
+}
+.navbar {
+  font-size: 25px;
+  font-weight: bold;
+  color: #005cbb;
+  background-image: url('../../../public/logo/e-registry-logo-text.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+
+}
+span {
+  font-size: 32px;
+  margin: 0;
+  font-family: "Google Sans", roboto, "Noto Sans Myanmar UI", arial, sans-serif;
+  font-weight: 400;
+}
+.load {
+  height: 5px;
+}
+p {
+  font-size: 1.2rem;
+  font-weight: 400;
+}

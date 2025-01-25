@@ -1,0 +1,64 @@
+<div class="dashboard-container d-flex flex-column">
+  <mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <ng-template #menu>
+      <mat-card class="example-menu" cdkMenu>
+        <mat-card appearance="outlined" cdkMenuItem
+                  class="example-menu-item">
+          <fa-icon class="menu-icon" cdkMenuItem [icon]="faFolderClosed"></fa-icon>
+          <mat-card-content>File manager</mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" cdkMenuItem
+                  class="example-menu-item">
+          <fa-icon class="menu-icon" cdkMenuItem [icon]="faMapLocationDot"></fa-icon>
+          <mat-card-content>Memo tracker</mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined" cdkMenuItem
+                  class="example-menu-item">
+          <fa-icon class="menu-icon" cdkMenuItem [icon]="faUserLock"></fa-icon>
+          <mat-card-content>Authorization</mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" cdkMenuItem
+                  class="example-menu-item">
+          <fa-icon class="menu-icon" cdkMenuItem [icon]="faUserCircle"></fa-icon>
+          <mat-card-content>Account</mat-card-content>
+        </mat-card>
+      </mat-card>
+
+    </ng-template>
+
+    <span class="logo"></span>
+    <span class="example-spacer"></span>
+    <form class="d-flex w-50" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+    <span class="example-spacer"></span>
+    <div class="d-flex gap-2">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" matTooltipPosition="below" matTooltip="Help">
+        <mat-icon>help</mat-icon>
+      </button>
+      <button mat-icon-button [cdkMenuTriggerFor]="menu" class="example-standalone-item" aria-label="Example icon-button with share icon"  matTooltipPosition="below" matTooltip="Menu">
+        <mat-icon>apps</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  matTooltipPosition="below" matTooltip="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class=" flex-grow-1">
+    <mat-sidenav class="left-side" opened mode="side">
+      <app-left-sidenav></app-left-sidenav>
+    </mat-sidenav>
+    <mat-sidenav class="right-side rounded-0" opened mode="side" position="end">
+      <app-right-sidenav></app-right-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content class="content-container">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

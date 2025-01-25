@@ -1,0 +1,26 @@
+<mat-card class="memo-container d-flex flex-column">
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon me-2">inbox</mat-icon>
+        All
+      </ng-template>
+      All
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <fa-icon class="example-tab-icon me-2" [icon]="faBuilding">inbox</fa-icon>
+        Internal
+      </ng-template>
+      Internal
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <fa-icon class="example-tab-icon me-2" [icon]="faBuildingCircleArrowRight">inbox</fa-icon>
+        External
+      </ng-template>
+      External
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-card>

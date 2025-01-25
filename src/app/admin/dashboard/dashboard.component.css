@@ -1,0 +1,153 @@
+/* Ensure the dashboard grid takes full height and width */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  grid-auto-rows: 1fr; /* Makes rows automatically fill the available height */
+  gap: 10px; /* 10px spacing between the cards */
+  height: 100%; /* Fills the available height from parent */
+  width: 100%; /* Fills the available width from parent */
+  padding: 0; /* Optional padding around the grid */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* Individual card styling */
+.dash-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  background-color: #fff;
+  box-shadow: none;
+  text-align: center;
+  height: 100%; /* Ensures cards stretch to fill their row's height */
+}
+
+/* Control sizes for specific cards (if needed) */
+.card-1 {
+  grid-column: span 2; /* Spans 2 columns */
+  grid-row: span 4; /* Spans 2 rows */
+  border-radius: 0;
+}
+
+.card-2 {
+  grid-column: span 2;
+  grid-row: span 4; /* Spans 2 rows */
+}
+
+.card-3 {
+  grid-column: span 2;
+}
+
+.card-4 {
+  grid-column: span 4;
+  grid-row: span 4;
+}
+
+.head {
+  background: rgba(0, 92, 187, 0.2);
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 4 equal columns */
+  grid-auto-rows: 1fr; /* Makes rows automatically fill the available height */
+  gap: 5px; /* 10px spacing between the cards */
+  height: 100%; /* Fills the available height from parent */
+  width: 100%; /* Fills the available width from parent */
+  padding: 5px; /* Optional padding around the grid */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.over {
+  border-radius: 5px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(0, 92, 187, 0.05);
+
+}
+
+.over:hover {
+  background-color: rgba(0, 92, 187, 0.1);
+  cursor: pointer;
+}
+
+.over:hover .icon {
+  color: rgba(0, 92, 187, 0.83);
+}
+
+.icon {
+  font-size: 30px;
+  color: rgba(0, 92, 187, 0.3);
+}
+
+.example-list {
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  min-height: 60px;
+  display: block;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  overflow-y: auto;
+  max-height: 250px;
+}
+
+.example-box {
+  padding: 15px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+/* Optional: Add responsiveness to make it adapt to smaller screens */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Stack the cards vertically */
+  }
+}

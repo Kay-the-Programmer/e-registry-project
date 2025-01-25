@@ -1,0 +1,78 @@
+<div class="dashboard-grid">
+  <mat-card class="dash-card card-1">
+    <div class="d-flex head align-items-center flex-row w-100 gap-2 p-2">
+      <fa-icon [icon]="faMapLocationDot"></fa-icon>
+      <span>Active memo</span>
+    </div>
+    <div class="active-memo d-flex align-items-center justify-content-center flex-column w-100 h-100">
+      <fa-icon class="icon" [icon]="faExclamationTriangle"></fa-icon>
+      <p>No active memo at the moment.</p>
+
+    </div>
+  </mat-card>
+  <mat-card class="dash-card card-2">
+    <div class="d-flex head align-items-center flex-row w-100 gap-2 p-2">
+      <fa-icon [icon]="faChartArea"></fa-icon>
+      <span>Overview</span>
+    </div>
+    <div class="overview">
+      <mat-card class="over over-card-1 ">
+        <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-center p-2">
+          <div class="d-flex flex-column align-items-start">
+            <span>Authorised Files: </span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="p-2 d-flex align-items-center justify-content-center">
+          <fa-icon class="icon" [icon]="faFolderOpen"></fa-icon>
+        </div>
+      </mat-card>
+      <mat-card class="over over-card-1 ">
+        <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-center p-2">
+          <div class="d-flex flex-column align-items-start">
+            <span>Pending file requests: </span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="p-2 d-flex align-items-center justify-content-center">
+          <fa-icon class="icon" [icon]="faFileArrowDown"></fa-icon>
+        </div>
+      </mat-card>
+      <mat-card class="over over-card-1 ">
+        <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-center p-2">
+          <div  class="d-flex flex-column align-items-start">
+            <span>Total files: </span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="p-2 d-flex align-items-center justify-content-center">
+          <fa-icon class="icon" [icon]="faFolder"></fa-icon>
+        </div>
+      </mat-card>
+      <mat-card class="over over-card-1 ">
+        <div class="d-flex flex-column flex-grow-1 align-items-start justify-content-center p-2">
+          <div  class="d-flex flex-column align-items-start">
+            <span>Incoming memos: </span>
+            <span>100</span>
+          </div>
+        </div>
+        <div class="p-2 d-flex align-items-center justify-content-center">
+          <fa-icon class="icon" [icon]="faFileLines"></fa-icon>
+        </div>
+      </mat-card>
+    </div>
+
+  </mat-card>
+
+  <mat-card class="dash-card card-4">
+    <div class="d-flex head align-items-center flex-row w-100 gap-2 p-2">
+      <fa-icon [icon]="faFileArrowDown"></fa-icon>
+      <span>Pending file requests</span>
+    </div>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      @for (movie of movies; track movie) {
+        <div class="example-box" cdkDrag>{{movie}}</div>
+      }
+    </div>
+  </mat-card>
+</div>

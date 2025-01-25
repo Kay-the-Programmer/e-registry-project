@@ -1,0 +1,45 @@
+<nav class="navbar">
+  <div class="navbar-brand d-flex align-items-center justify-content-start">
+    <mat-icon>add</mat-icon>
+    <span>Create memo</span>
+  </div>
+  <div class="navigation container-fluid m-0 p-0 flex-column me-2 justify-content-start gap-1">
+    <a class="nav-link " aria-current="page" routerLink="/admin/dashboard" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faHouse"></fa-icon>
+      </div>
+      Dashboard
+    </a>
+    <a class="nav-link d-flex align-items-center" aria-current="page" routerLink="/admin/inbox" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faInbox"></fa-icon>
+      </div>
+      <span>Inbox</span>
+      <span class="badge bg-secondary rounded-pill ms-auto">246</span>
+    </a>
+    <a class="nav-link " routerLink="/admin/sent" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faPaperPlane"></fa-icon>
+      </div>
+      Sent
+    </a>
+    <a class="nav-link " routerLink="/admin/drafts" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faFileAlt"></fa-icon>
+      </div>
+      Drafts
+    </a>
+    <a class="nav-link " routerLink="/admin/file-requests" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faFileArrowDown"></fa-icon>
+      </div>
+      File requests
+    </a>
+    <a class="nav-link " routerLink="/admin/files" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faFolder"></fa-icon>
+      </div>
+      Files
+    </a>
+  </div>
+</nav>
