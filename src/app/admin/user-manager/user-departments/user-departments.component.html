@@ -1,0 +1,47 @@
+<div class="d-flex flex-column">
+    <mat-toolbar class="px-0">
+      <button mat-icon-button matTooltip="Add department" class="icon" aria-label="button with add icon" (click)="createDepartment()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+
+
+    <!-- Department List -->
+    <table mat-table [dataSource]="departments" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let department"> {{ department.id }} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let department"> {{ department.name }} </td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let department"> {{ department.description }} </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let department">
+          <button mat-button (click)="updateDepartment(department)">Edit</button>
+          <button mat-button color="warn" (click)="deleteDepartment(department.id, department.name)">Delete</button>
+        </td>
+      </ng-container>
+
+      <!-- Render Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

@@ -1,0 +1,31 @@
+/* Ensure the card uses the available width */
+.full-width-card {
+  width: 100%;
+  margin: 0; /* Optional: centers the card vertically */
+  padding: 5px; /* Add space around content if needed */
+  box-sizing: border-box; /* Ensures padding doesn't overflow */
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+mat-card-title {
+  padding-left: 5px;
+  margin: 16px 0;
+}
+mat-card-content {
+  padding-left: 5px;
+}
+
+/* Form Grid Layout for two columns */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  gap: 16px; /* Space between rows and columns */
+}
+
+/* Ensure the submit button spans both columns */
+.submit-button {
+  grid-column: span 2; /* Span the button across both columns */
+  justify-self: left; /* Center the button horizontally */
+}

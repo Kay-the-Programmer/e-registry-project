@@ -1,26 +1,45 @@
-<mat-card class="memo-container d-flex flex-column">
-  <mat-tab-group animationDuration="0ms">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon class="example-tab-icon me-2">inbox</mat-icon>
-        All
-      </ng-template>
-      All
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <fa-icon class="example-tab-icon me-2" [icon]="faBuilding">inbox</fa-icon>
-        Internal
-      </ng-template>
-      Internal
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <fa-icon class="example-tab-icon me-2" [icon]="faBuildingCircleArrowRight">inbox</fa-icon>
-        External
-      </ng-template>
-      External
-    </mat-tab>
-  </mat-tab-group>
+<mat-card class="memo-container rounded-0 d-flex flex-row w-100">
 
+  <!-- List of memos -->
+  @if (isListVisible) {
+    <div>
+      <mat-list>
+        @for (memo of memos; track memo) {
+          <mat-list-item (click)="selectMemo(memo)"
+                         class="cursor-pointer w-100">
+            <mat-icon matListItemIcon>envelope</mat-icon>
+            <div matListItemTitle>{{ memo.sentBy.firstName }} {{ memo.sentBy.lastName }} ({{ memo.sentBy.role }})</div>
+            <div matListItemLine>{{ memo.subject }}</div>
+            <div matListItemMeta>{{ memo.createdAt | date:'short' }}</div>
+          </mat-list-item>
+        }
+      </mat-list>
+    </div>
+  }
+
+  <!-- Memo details (shown when a memo is clicked) -->
+  @if (selectedMemo) {
+    <mat-card class="rounded-0 flex-grow-1" >
+      <mat-toolbar class="px-0">
+        <button mat-icon-button class="back-icon" aria-label="back icon">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-icon-button class="back-icon" aria-label="back icon">
+          <mat-icon>forward</mat-icon>
+        </button>
+        <button mat-icon-button class="back-icon" aria-label="back icon">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <mat-card-title>{{ selectedMemo.subject }}</mat-card-title>
+      <mat-card-subtitle>
+        From: {{ selectedMemo.sentBy.firstName }} {{ selectedMemo.sentBy.lastName }}
+        ({{ selectedMemo.sentBy.role }}) • {{ selectedMemo.createdAt | date:'short' }}
+      </mat-card-subtitle>
+      <mat-card-content>
+        <p>{{ selectedMemo.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  }
 </mat-card>

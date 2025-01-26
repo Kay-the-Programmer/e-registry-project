@@ -5,7 +5,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 import {LeftSidenavComponent} from './left-sidenav/left-sidenav.component';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {
   faFolderClosed,
@@ -37,6 +37,7 @@ import {MatCardModule} from '@angular/material/card';
     RightSidenavComponent,
     MatCardModule,
     FaIconComponent,
+    RouterLink,
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'

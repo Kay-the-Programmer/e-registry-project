@@ -1,0 +1,32 @@
+<nav class="navbar">
+
+  <div class="navigation container-fluid m-0 p-0 flex-column me-2 justify-content-start gap-1">
+    <a class="nav-link d-flex align-items-center" aria-current="page" routerLink="/user-manager/all-users" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faUsers"></fa-icon>
+      </div>
+      All users
+    </a>
+
+    <a class="nav-link " aria-current="page" routerLink="/user-manager/create-user" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faUserPlus"></fa-icon>
+      </div>
+      New user
+    </a>
+
+    <a class="nav-link " routerLink="/user-manager/departments" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faBuilding"></fa-icon>
+      </div>
+      Departments
+    </a>
+    <a class="nav-link " routerLink="/user-manager/user-access-control" routerLinkActive="active">
+      <div class="icon">
+        <fa-icon [icon]="faUserLock"></fa-icon>
+      </div>
+      Access control
+    </a>
+
+  </div>
+</nav>

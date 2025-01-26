@@ -1,0 +1,100 @@
+/* Main container for the left-right layout */
+.user-list-container {
+  display: flex;
+  background-color: transparent;
+  border-radius:0;
+}
+
+mat-card {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Style for the user list card */
+.user-list {
+  flex: 1;
+  width: 600px;
+  min-width: 500px;
+  overflow-y: auto;
+  height: calc(100vh - 60px); /* Make it scrollable for large user lists */
+  padding: 5px;
+  box-sizing: border-box;
+}
+.user-list-content {
+  width: 100%;
+}
+
+mat-list-item {
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background 0.3s ease;
+}
+
+mat-list-item:hover {
+  background: rgba(244, 244, 244, 0.11);
+}
+
+mat-list-item.selected {
+  background-color: rgba(0, 92, 187, 0.1); /* Highlighted background for selected user */
+  border-radius: 15px;
+}
+
+.user-actions {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.user-actions button {
+  margin-left: 8px;
+}
+
+.mat-mdc-list-item-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+
+
+/* Style for the card header to include the close button */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 8px;
+}
+
+/* Style for the user details card */
+.user-details {
+  flex: 1;
+  padding: 8px;
+  height: fit-content;
+  border-radius: 10px ;
+  margin: 5px;
+  background-color: rgba(0, 92, 187, 0.05);
+}
+
+.user-detail-info {
+  margin-bottom: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.user-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  background-color: transparent;
+}
+/* Container for the filter input */
+.filter-container {
+  margin-bottom: 0;
+}
+
+/* Search input styling */
+.filter-input {
+  width: 100%;
+}

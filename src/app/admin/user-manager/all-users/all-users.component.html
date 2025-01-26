@@ -1,0 +1,65 @@
+
+<div class="user-list-container">
+
+  <!-- Left panel: User List -->
+  <mat-card class="user-list">
+
+    <!-- Search input for filtering -->
+    <div class="filter-container">
+      <mat-form-field appearance="fill" class="filter-input">
+        <mat-label>Search user</mat-label>
+        <input matInput [(ngModel)]="searchText" placeholder="Enter name or email" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- User List -->
+    <div class="user-list-content">
+      <mat-list>
+        <mat-list-item
+          *ngFor="let user of filteredUsers()"
+          (click)="selectUser(user)"
+          [class.selected]="user.id === selectedUser?.id"
+        >
+          <mat-icon matListItemIcon>person</mat-icon>
+          <div matListItemTitle>{{ user.firstName }} {{ user.lastName }}</div>
+          <div matListItemLine>{{ user.email }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+
+  </mat-card>
+  <mat-card class="user-details" *ngIf="selectedUser">
+
+    <mat-toolbar class="user-details-header">
+      <span class="example-spacer"></span>
+      <button mat-icon-button (click)="closeDetails()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- User detail information -->
+    <div class="user-detail-info">
+
+      <p><strong>First Name:</strong> {{ selectedUser.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ selectedUser.lastName || 'N/A' }}</p>
+      <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+      <p><strong>Department:</strong> {{ selectedUser.department || 'N/A' }}</p>
+      <p><strong>Position:</strong> {{ selectedUser.position || 'N/A' }}</p>
+      <p><strong>Role:</strong> {{ selectedUser.role }}</p>
+      <p><strong>Created At:</strong> {{ selectedUser.createdAt | date }}</p>
+      <p><strong>Updated At:</strong> {{ selectedUser.updatedAt | date }}</p>
+    </div>
+
+    <!-- Actions: Edit and Delete -->
+    <div class="user-actions">
+      <button mat-raised-button color="primary" (click)="editUser(selectedUser)">Update user details</button>
+      <button mat-raised-button color="warn" (click)="deleteUser(selectedUser)">Delete user</button>
+    </div>
+  </mat-card>
+  <mat-card class="user-details" *ngIf="!selectedUser">
+    <p class="py-3">Selected user details will appear here</p>
+  </mat-card>
+
+</div>

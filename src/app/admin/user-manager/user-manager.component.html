@@ -1,7 +1,7 @@
-<div class="dashboard-container d-flex flex-column">
+<div class="dashboard-container">
   <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
+    <button mat-icon-button routerLink="/admin/" class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>arrow_back</mat-icon>
     </button>
     <ng-template #menu>
       <mat-card class="example-menu" cdkMenu>
@@ -17,8 +17,9 @@
         </mat-card>
 
         <mat-card appearance="outlined" cdkMenuItem
+                  class="example-menu-item"
                   routerLink="/user-manager"
-                  class="example-menu-item">
+        >
           <fa-icon class="menu-icon" cdkMenuItem [icon]="faUserLock"></fa-icon>
           <mat-card-content>User manager</mat-card-content>
         </mat-card>
@@ -49,13 +50,9 @@
       </button>
     </div>
   </mat-toolbar>
-
-  <mat-sidenav-container class=" flex-grow-1">
+  <mat-sidenav-container class="h-100 flex-grow-1">
     <mat-sidenav class="left-side" opened mode="side">
-      <app-left-sidenav></app-left-sidenav>
-    </mat-sidenav>
-    <mat-sidenav class="right-side rounded-0" opened mode="side" position="end">
-      <app-right-sidenav></app-right-sidenav>
+      <app-user-manager-left-panel></app-user-manager-left-panel>
     </mat-sidenav>
     <mat-sidenav-content class="content-container">
       <router-outlet></router-outlet>

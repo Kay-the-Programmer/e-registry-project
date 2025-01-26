@@ -1,0 +1,93 @@
+.dashboard-container {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  height: 50px;
+  background-color: #f0f0f0; /* Fallback color */
+}
+
+.left-side {
+  width: 250px;
+  border-radius: 0;
+  padding: 0;
+}
+
+.right-side {
+  width: 60px;
+  border-radius: 0;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  height: 98%;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.example-menu {
+  display: grid; /* Grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive columns */
+  gap: 10px; /* Grid spacing */
+  padding: 10px; /* Updated padding for uniformity */
+  background-color: rgb(255, 255, 255); /* Background kept consistent */
+  border: 5px solid rgba(0, 92, 187, 0.05); /* Border for better visibility */
+  border-radius: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.example-menu-item,
+.example-standalone-item {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Align inner items in the center */
+  padding: 8px;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  flex: 1;
+  transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+.example-menu-item {
+  border-radius: 15px;
+  font-size: 1rem;
+}
+
+.example-standalone-item {
+}
+
+.example-menu-item:hover,
+.example-standalone-item:hover,
+.example-standalone-item[aria-expanded='true'] {
+  background-color: rgba(0, 92, 187, 0.1);
+}
+
+.example-menu-item:active {
+  background-color: rgb(170, 170, 170);
+}
+
+.example-menu-item[role='menuitemradio'][aria-checked='true'],
+.example-menu-item[role='menuitemcheckbox'][aria-checked='true'] {
+  background-color: rgb(225, 225, 225);
+}
+
+.example-menu div[cdkMenuGroup] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Grid within group */
+  gap: 8px; /* Space between items */
+}
+
+.menu-icon {
+  font-size: 28px;
+  color: #005cbb;
+}
