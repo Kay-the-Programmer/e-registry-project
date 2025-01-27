@@ -1,0 +1,53 @@
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 500px; /* Default height */
+  width: 500px; /* Fixed width */
+  background: white;
+  border-radius: 8px 8px 0 0;
+  padding: 0 0 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: height 0.3s ease; /* Smooth resize transition */
+}
+
+/* Minimized Editor State */
+.editor-container.minimized {
+  height: 64px; /* Minimized height */
+  overflow: hidden;
+  padding: 0; /* Adjust padding for smaller size */
+  display: flex;
+  width: 300px;
+}
+
+/* Editor Header */
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 92, 187, 0.17);
+  border-radius: 8px 8px 0 0;
+}
+/* Minimized Header Title */
+.editor-header h3 {
+  margin: 0;
+  font-size: 16px; /* Smaller font size for minimized header */
+}
+
+/* Editor Body - Takes Remaining Space */
+.editor-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  margin-top: 16px;
+}
+
+/* Editor Actions - Sticky to Bottom */
+.editor-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.full-width {
+  width: 100%;
+}

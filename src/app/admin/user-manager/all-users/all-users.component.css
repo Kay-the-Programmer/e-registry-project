@@ -48,19 +48,8 @@ mat-list-item.selected {
   margin-left: 8px;
 }
 
-.mat-mdc-list-item-icon {
-  color: rgba(0, 0, 0, 0.54);
-}
-
-
 
 /* Style for the card header to include the close button */
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 8px;
-}
 
 /* Style for the user details card */
 .user-details {

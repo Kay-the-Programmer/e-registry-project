@@ -92,3 +92,8 @@
   font-size: 28px;
   color: #005cbb;
 }
+
+mat-toolbar {
+  /*background-color: rgba(135, 186, 239, 0.24);*/
+
+}

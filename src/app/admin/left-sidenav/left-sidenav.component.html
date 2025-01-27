@@ -1,21 +1,16 @@
 <nav class="navbar">
-  <div class="navbar-brand d-flex align-items-center justify-content-start">
+  <div class="navbar-brand d-flex align-items-center justify-content-center">
     <mat-icon>add</mat-icon>
     <span>Create memo</span>
   </div>
   <div class="navigation container-fluid m-0 p-0 flex-column me-2 justify-content-start gap-1">
-    <a class="nav-link " aria-current="page" routerLink="/admin/dashboard" routerLinkActive="active">
-      <div class="icon">
-        <fa-icon [icon]="faHouse"></fa-icon>
-      </div>
-      Dashboard
-    </a>
+
     <a class="nav-link d-flex align-items-center" aria-current="page" routerLink="/admin/inbox" routerLinkActive="active">
       <div class="icon">
         <fa-icon [icon]="faInbox"></fa-icon>
       </div>
       <span>Inbox</span>
-      <span class="badge bg-secondary rounded-pill ms-auto">246</span>
+      <span class="badge bg-transparent text-info-emphasis rounded-pill ms-auto">246</span>
     </a>
     <a class="nav-link " routerLink="/admin/sent" routerLinkActive="active">
       <div class="icon">

@@ -1,0 +1,51 @@
+<mat-card class="editor-container d-flex flex-column"  [class.minimized]="isMinimized">
+  <!-- Editor Header -->
+  <div class="editor-header px-3">
+    <h3 *ngIf="!isMinimized">{{ editorMode === 'reply' ? 'Reply to Memo' : 'Forward Memo' }}</h3>
+
+    <h3 *ngIf="isMinimized">New memo</h3>
+    <div class="header-actions d-flex align-items-center justify-content-between gap-2 flex-row">
+      <button mat-icon-button class="d-flex align-items-center justify-content-center" (click)="toggleMinimize()">
+        <mat-icon>{{ isMinimized ? 'expand_more' : 'expand_less' }}</mat-icon> <!-- Minimize/Expand Icon -->
+      </button>
+      <button mat-icon-button class="d-flex align-items-center justify-content-center" (click)="closeOverlayEditor()">
+        <mat-icon>close</mat-icon> <!-- Close Icon -->
+      </button>
+    </div>
+  </div>
+
+  <!-- Dynamic Content Based on Mode -->
+  <!-- Editor Body (Hidden When Minimized) -->
+  <div class="editor-body px-3" *ngIf="!isMinimized">
+    <div *ngIf="editorMode === 'reply'">
+      <p>Replying to: {{ selectedMemo?.sender?.name }}</p>
+    </div>
+
+    <div *ngIf="editorMode === 'forward'">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Forward To</mat-label>
+        <input
+          matInput
+          placeholder="Enter recipient"
+          [(ngModel)]="forwardRecipient"
+        />
+      </mat-form-field>
+    </div>
+
+    <quill-editor
+      [(ngModel)]="editorContent"
+      [modules]="editorModules"
+      placeholder="Type your reply or message here..."
+      class="w-100"
+    ></quill-editor>
+  </div>
+
+  <!-- Editor Action Buttons (Hidden When Minimized) -->
+  <div class="editor-actions px-3" *ngIf="!isMinimized">
+    <button mat-flat-button color="primary" (click)="sendMessage()">
+      {{ editorMode === 'reply' ? 'Send Reply' : 'Forward Memo' }}
+    </button>
+  </div>
+
+</mat-card>
+

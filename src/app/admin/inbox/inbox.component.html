@@ -1,17 +1,172 @@
-<mat-card class="memo-container rounded-0 d-flex flex-row w-100">
+<mat-card class="memo-container rounded-0 d-flex bg-white flex-column w-100 h-100 overflow-hidden">
+  <mat-toolbar class="toolbar ps-0 bg-body-tertiary position-static">
+    <div class="toolbar-content">
+      <!-- Filter and Pagination Section -->
+      <ng-container *ngIf="!selectedMemo; else memoToolbar">
+        <div class="custom-filter-field">
+          <input
+            matInput
+            [(ngModel)]="filterText"
+            placeholder="Filter by subject or sender"
+          />
+          <fa-icon class="filter-icon" [icon]="faFilter"></fa-icon>
+        </div>
 
+        <span class="example-spacer"></span>
+        <mat-paginator
+          [length]="filteredMemos.length"
+          [pageIndex]="pageIndex"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="onPageChange($event)">
+        </mat-paginator>
+        <button mat-icon-button [cdkMenuTriggerFor]="menu" class="example-standalone-item">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <ng-template #menu>
+          <div class="example-menu" cdkMenu>
+            <button
+              cdkMenuItemCheckbox
+              class="example-menu-item"
+              [cdkMenuItemChecked]="all"
+              (cdkMenuItemTriggered)="all = !all">
+              All
+            </button>
+            <button
+              cdkMenuItemCheckbox
+              class="example-menu-item"
+              [cdkMenuItemChecked]="internal"
+              (cdkMenuItemTriggered)="internal = !internal">
+              Internal
+            </button>
+            <button
+              cdkMenuItemCheckbox
+              class="example-menu-item"
+              [cdkMenuItemChecked]="external"
+              (cdkMenuItemTriggered)="external = !external">
+              External
+            </button>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <!-- Selected Memo Actions Section -->
+      <ng-template #memoToolbar>
+        <button
+          mat-icon-button
+          matTooltip="Back to inbox"
+          (click)="deselectMemo()"
+          class="back-icon"
+          aria-label="back icon">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+        <span class="example-spacer"></span>
+        <!-- Approve -->
+        <button
+          mat-icon-button
+          matTooltip="Mark as approved"
+          class="back-icon"
+          aria-label="approve icon"
+          (click)="changeMemoStatus('approved')"
+          [disabled]="disableButtons">
+          <mat-icon>done</mat-icon>
+        </button>
+
+        <!-- Mark as Read -->
+        <button
+          mat-icon-button
+          matTooltip="Mark as read"
+          class="back-icon"
+          aria-label="mark as read icon"
+          (click)="changeMemoStatus('read')"
+          [disabled]="disableButtons">
+          <mat-icon>drafts</mat-icon>
+        </button>
+
+        <!-- Reject -->
+        <button
+          mat-icon-button
+          matTooltip="Mark as rejected"
+          class="back-icon"
+          aria-label="reject icon"
+          (click)="changeMemoStatus('rejected')"
+          [disabled]="disableButtons">
+          <mat-icon>block</mat-icon>
+        </button>
+
+        <!-- Close -->
+        <button
+          mat-icon-button
+          matTooltip="Mark as closed"
+          class="back-icon"
+          aria-label="close icon"
+          (click)="changeMemoStatus('closed')"
+          [disabled]="disableButtons">
+          <mat-icon>comments_disabled</mat-icon>
+        </button>
+
+
+        <button mat-icon-button
+                matTooltip="Open in memo tracker"
+                class="back-icon"
+                aria-label="pending icon">
+          <mat-icon>open_in_new</mat-icon>
+        </button>
+      </ng-template>
+    </div>
+  </mat-toolbar>
   <!-- List of memos -->
   @if (isListVisible) {
-    <div>
-      <mat-list>
-        @for (memo of memos; track memo) {
-          <mat-list-item (click)="selectMemo(memo)"
-                         class="cursor-pointer w-100">
-            <mat-icon matListItemIcon>envelope</mat-icon>
-            <div matListItemTitle>{{ memo.sentBy.firstName }} {{ memo.sentBy.lastName }} ({{ memo.sentBy.role }})</div>
-            <div matListItemLine>{{ memo.subject }}</div>
-            <div matListItemMeta>{{ memo.createdAt | date:'short' }}</div>
+    <div class="flex-grow-1 overflow-auto">
+      <mat-list class="p-0">
+        @for (memo of pagedMemos; track memo) {
+          <mat-list-item
+                         class="cursor-pointer w-100 list-item p-0 m-0 h-50 d-flex flex-row"
+                         (mouseenter)="onHover(memo, true)"
+                         (mouseleave)="onHover(memo, false)"
+                         [ngClass]="{'is-read': memo.isRead, 'selected-memo': isSelected(memo) }"
+                                           >
+            <mat-icon matListItemIcon
+              class="mat-mdc-list-item-icon "
+              [ngClass]="{ 'blue-check': isSelected(memo) }"
+              (click)="toggleSelection(memo)"
+            >
+              {{ isSelected(memo) ? 'check_box' : 'check_box_outline_blank' }}
+            </mat-icon>
+
+            <div (click)="selectMemo(memo)"  matListItemLine>{{ memo.sentBy.firstName }} {{ memo.sentBy.lastName }} ({{ memo.sentBy.role }})</div>
+            <div (click)="selectMemo(memo)"  matListItemTitle>{{ memo.subject }}</div>
+            <!-- This meta is hidden on hover, so only display if not in hover state -->
+              <div
+                class="item-meta d-flex flex-column justify-content-start align-items-start"
+                [ngClass]="{ 'hide-on-hover': hoveredMemoIds.has(memo.id) }"
+              >
+                {{ memo.createdAt | date:'short' }}
+
+              </div>
+
+
+              <!-- Action buttons: show them only if hovered -->
+              <div class="action-buttons"
+                   [ngClass]="{ 'show-on-hover': hoveredMemoIds.has(memo.id) }">
+                <button
+                  mat-icon-button
+                  matTooltip="mark as read"
+                  aria-label="reply"
+                >
+                  <mat-icon>drafts</mat-icon>
+                </button>
+                <button mat-icon-button  matTooltip="forward" aria-label="Forward">
+                  <mat-icon>share</mat-icon>
+                </button>
+                <button mat-icon-button (click)="selectMemo(memo)"  matTooltip="preview" aria-label="Forward">
+                  <mat-icon>preview</mat-icon>
+                </button>
+              </div>
           </mat-list-item>
+          <mat-divider></mat-divider>
         }
       </mat-list>
     </div>
@@ -19,27 +174,131 @@
 
   <!-- Memo details (shown when a memo is clicked) -->
   @if (selectedMemo) {
-    <mat-card class="rounded-0 flex-grow-1" >
-      <mat-toolbar class="px-0">
-        <button mat-icon-button class="back-icon" aria-label="back icon">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-        <button mat-icon-button class="back-icon" aria-label="back icon">
-          <mat-icon>forward</mat-icon>
-        </button>
-        <button mat-icon-button class="back-icon" aria-label="back icon">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-      </mat-toolbar>
+    <mat-card class="rounded-0 flex-grow-1 h-100" >
 
-      <mat-card-title>{{ selectedMemo.subject }}</mat-card-title>
-      <mat-card-subtitle>
-        From: {{ selectedMemo.sentBy.firstName }} {{ selectedMemo.sentBy.lastName }}
-        ({{ selectedMemo.sentBy.role }}) • {{ selectedMemo.createdAt | date:'short' }}
-      </mat-card-subtitle>
-      <mat-card-content>
-        <p>{{ selectedMemo.content }}</p>
-      </mat-card-content>
+      <mat-card class="memo-detail-card">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <mat-card-title>{{ selectedMemo.subject }} </mat-card-title>
+
+          @if (selectedMemo.status === 'pending' ) {
+            <span class="badge badge-primary text-bg-secondary rounded-5" >{{ selectedMemo.status }}</span>
+          } @else if (selectedMemo.status === 'approved' ) {
+            <span class="badge badge-primary text-bg-success rounded-5" >{{ selectedMemo.status }}</span>
+          } @else if (selectedMemo.status === 'rejected'){
+            <span class="badge badge-primary bg-danger rounded-5" >{{ selectedMemo.status }}</span>
+          } @else {
+            <span class="badge badge-primary bg-primary-subtle rounded-5" >{{ selectedMemo.status }}</span>
+          }
+        </div>
+        <mat-card-subtitle>
+          From: {{ selectedMemo.sentBy.firstName }} {{ selectedMemo.sentBy.lastName }}
+          ({{ selectedMemo.sentBy.role }} - {{selectedMemo.sentBy.department.name}}) • {{ selectedMemo.createdAt | date:'short' }}
+        </mat-card-subtitle>
+        <!-- Receiver Info -->
+        <div class="memo-receiver">
+          <p><strong>To:</strong> {{ selectedMemo.receiver.firstName }} {{ selectedMemo.receiver.lastName }}
+            ({{ selectedMemo.receiver.role }})</p>
+        </div>
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <!-- Memo Content -->
+          <div class="memo-content">
+            <p>{{ selectedMemo.content }}</p>
+          </div>
+
+          <!-- Forward History as Timeline -->
+          <div
+            class="memo-timeline"
+            *ngIf="selectedMemo?.forwardHistory && selectedMemo.forwardHistory.length > 0"
+          >
+            <div class="timeline-title">
+              <!-- Button to toggle forward history visibility -->
+              <button mat-flat-button (click)="toggleForwardHistory()" aria-label="Toggle forward history">
+                <mat-icon>history</mat-icon>
+                {{ showForwardHistory ? 'Hide Forward History' : 'Show Forward History' }}
+              </button>
+            </div>
+
+            <div class="timeline" *ngIf="showForwardHistory">
+
+              <!-- Memo Creation as the start of the timeline -->
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <p><strong>Created By:</strong> {{ selectedMemo.sentBy.firstName }} {{ selectedMemo.sentBy.lastName }} ({{ selectedMemo.sentBy.role }})</p>
+                  <p><strong>Date:</strong> {{ selectedMemo.createdAt | date: 'short' }}</p>
+                </div>
+              </div>
+
+              <!-- Loop through Forward History -->
+              <div *ngFor="let forward of selectedMemo.forwardHistory" class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <p>
+                    <strong>Forwarded By:</strong> {{ forward.from.firstName }} {{ forward.from.lastName }}
+                    ({{ forward.from.role }})
+                    <br />
+                    <strong>To:</strong> {{ forward.to.firstName }} {{ forward.to.lastName }}
+                    ({{ forward.to.role }})
+                  </p>
+                  <p><strong>Date:</strong> {{ forward.from.updatedAt | date: 'short' }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          @if (selectedMemo.status !== 'closed' ) {
+            <mat-card-actions class="d-flex justify-content-start gap-2 px-0">
+              <!-- Show Reply and Forward buttons only if the editor is not visible -->
+              <button mat-stroked-button *ngIf="!isEditorVisible" (click)="openReply()">Reply</button>
+              <button mat-stroked-button *ngIf="!isEditorVisible" (click)="openEditor('forward')">Forward</button>
+            </mat-card-actions>
+          }
+
+          <!-- Text editor for reply or forward -->
+          <mat-card class="editor-card" *ngIf="isEditorVisible">
+            <div class="editor-title d-flex justify-content-between align-items-center px-3 ">
+              <!-- Title based on the editor mode -->
+              {{ editorMode === 'reply' ? 'Replying to:' : 'Forwarding memo:' }}
+              <button mat-icon-button (click)="closeEditor()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <mat-card-content>
+              <!-- Dynamic Content -->
+              <div *ngIf="editorMode === 'reply'">
+                <!-- Show name and position of the user -->
+                <p><strong>Name:</strong> {{selectedMemo.sentBy.firstName}} {{selectedMemo.sentBy.lastName}}</p>
+                <p><strong>Position:</strong> {{selectedMemo.sentBy.position}}</p> <!-- Ensure position exists -->
+              </div>
+              <div *ngIf="editorMode === 'forward'">
+                <!-- Show the 'forward to' input field -->
+                <div class="w-100 py-2 d-flex justify-content-between align-items-center">
+                  <label class="me-2">To:</label>
+                  <input class="flex-grow-1" matInput placeholder="Enter recipient name/email" [(ngModel)]="forwardRecipient" />
+                </div>
+              </div>
+              <!-- Textarea for the message -->
+              <quill-editor
+                [(ngModel)]="editorContent"
+                [modules]="editorModules"
+                placeholder="Type your message here..."
+                class="w-100">
+              </quill-editor>
+
+            </mat-card-content>
+
+            <mat-card-actions class="d-flex justify-content-end gap-2 px-3 py-2">
+              <button mat-flat-button color="primary" (click)="sendMessage()">
+                {{ editorMode === 'reply' ? 'Send Reply' : 'Forward Memo' }}
+              </button>
+              <button mat-stroked-button color="warn" (click)="closeEditor()">Cancel</button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
     </mat-card>
   }
 </mat-card>

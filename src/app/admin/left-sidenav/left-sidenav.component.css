@@ -1,13 +1,14 @@
 nav.navbar {
   padding: 0;
   margin: 0;
+
   .navbar-brand {
     width: 100%;
-    border-radius: 15px;
-    margin: 0 5px 20px 5px;
+    border-radius: 5px;
+    margin: 5px 5px 20px 5px;
     padding: 15px;
+    background-color: rgba(0, 92, 187, 0.07);
     height: 100px;
-
     mat-icon {
       margin-right: 5px;
     }
@@ -25,8 +26,7 @@ nav.navbar {
     padding: 5px;
 
     .nav-link {
-      padding: 10px;
-      padding-left: 15px;
+      padding: 10px 10px 10px 15px;
       margin-right: 10px;
       font-size: 1rem;
       font-family: "Roboto", serif;
